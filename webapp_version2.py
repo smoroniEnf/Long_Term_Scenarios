@@ -64,9 +64,9 @@ MODEL_COEFFICIENTS = {
     }
 }
 
-path = os.getcwd() + "\\Enfinity Global\\Energy Management - Documents\\General\\05_Market Intelligence\\Data Team\\Long_Term_Scenarios\\"
+# path = os.getcwd() + "\\Enfinity Global\\Energy Management - Documents\\General\\05_Market Intelligence\\Data Team\\Long_Term_Scenarios\\"
 
-YIELDS_FACTORS = pd.read_csv(path + "yields_for_capacities.csv")
+YIELDS_FACTORS = pd.read_csv("yields_for_capacities.csv")
 
 
 
@@ -94,13 +94,13 @@ def load_model_and_data(scenario):
 
         # Load models
 
-        with open(path + baseload_model_file, 'rb') as f:
+        with open(baseload_model_file, 'rb') as f:
             baseload_model = pickle.load(f)
-        with open(path + pv_model_file, 'rb') as f:
+        with open(pv_model_file, 'rb') as f:
             pv_model = pickle.load(f)
 
         # Load data
-        data = pd.read_csv(path + data_file)
+        data = pd.read_csv(data_file)
         data["Year"] = data["Year"].astype(int)
         data = data.loc[data['Year'] >= 2026].reset_index(drop=True)
 
@@ -452,4 +452,5 @@ if compute_button:
             st.error(f"Error in prediction: {str(e)}")
             st.write("Debug info:", str(e))
     else:
+
         st.info("ℹ️ No changes detected. Modify some input values to see predictions.")
