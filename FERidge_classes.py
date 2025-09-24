@@ -2,10 +2,16 @@
 
 import numpy as np
 import pandas as pd
-import cvxpy as cp
 from dataclasses import dataclass
 from typing import Dict, Optional, List
 import pickle
+import subprocess
+import sys
+try:
+    import cvxpy
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "cvxpy"])
+    import cvxpy
 
 TARGETS = ["Baseload_Price_EUR_MWh", "PV_Captured_Price_EUR_MWh"]
 
@@ -634,4 +640,5 @@ class ConstrainedFEScenarioSimulator:
         axes[1,1].grid(True, alpha=0.3)
         
         plt.tight_layout()
+
         plt.show()
