@@ -2,7 +2,7 @@
 streamlit
 pandas
 numpy
-pickle5
+pickle
 cvxpy
 scipy
 matplotlib
