@@ -96,10 +96,6 @@ if simulator_baseload is None or data is None or simulator_pv is None:
     st.error("Failed to load model or data. Please check if the files exist.")
     st.stop()
 
-import plotly.graph_objects as go
-import plotly.express as px
-from plotly.subplots import make_subplots
-
 def calculate_hydro_generation(new_hydro_capacity, capacity_factor):
     """
     Calculate hydro generation based on capacity and capacity factor
@@ -831,4 +827,5 @@ if compute_button:
     )
     
     st.markdown("<br>", unsafe_allow_html=True)
+
 
