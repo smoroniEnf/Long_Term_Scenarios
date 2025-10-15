@@ -283,7 +283,7 @@ for i, var in enumerate(all_variables):
                             use_container_width=True,
                             column_config={
                                 "Year": st.column_config.Column("Year", disabled=True),
-                                var: st.column_config.Column(var, required=True)
+                                variable_info[var][description]: st.column_config.Column(var, required=True)
                             },
                             key=f"data_editor_{var}"
                         )
@@ -830,6 +830,7 @@ if compute_button:
     )
     
     st.markdown("<br>", unsafe_allow_html=True)
+
 
 
 
