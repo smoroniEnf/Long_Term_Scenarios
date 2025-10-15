@@ -3,6 +3,9 @@ import pandas as pd
 import pickle
 import numpy as np
 import os
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
 from FERidge_classes2 import ConstrainedFEModel, ConstrainedFEScenarioSimulator
 
 TARGETS = ["Baseload_Price_EUR_MWh", "PV_Captured_Price_EUR_MWh"]
@@ -827,5 +830,6 @@ if compute_button:
     )
     
     st.markdown("<br>", unsafe_allow_html=True)
+
 
 
