@@ -41,7 +41,7 @@ MODEL_COEFFICIENTS = {
 }
 CAPACITY_FACTOR_HYDRO = pd.read_csv("capacity_factor_hydro.csv")
 
-path = os.getcwd() + "\\"
+#path = os.getcwd() + "\\"
 
 st.set_page_config(
     page_title = "Long Term Energy Price Scenarios",
@@ -59,11 +59,11 @@ def load_model_and_data(scenario,data_plot):
         baseload_model_file = f'baseload_{scenario.lower()}_model_9.pkl'
         pv_model_file = f'pv_{scenario.lower()}_model_9.pkl'
         data_file = f'processed_{scenario.lower()}_scenario_data_6.csv'
-        with open(path + baseload_model_file, 'rb') as f:
+        with open(baseload_model_file, 'rb') as f:
             baseload_model = pickle.load(f)
-        with open(path + pv_model_file, 'rb') as f:
+        with open(pv_model_file, 'rb') as f:
             pv_model = pickle.load(f)
-        data = pd.read_csv(path + data_file)
+        data = pd.read_csv(data_file)
         data["Year"] = data["Year"].astype(int)
         data = data.loc[data['Year'] >= 2026].reset_index(drop=True)
         data["Release"] = data["Release"].astype(str)
@@ -82,10 +82,10 @@ def load_model_and_data(scenario,data_plot):
         st.error(f"Error loading model or data: {e}")
         return None, None, None, None, None
 
-data_plot = pd.read_csv(path + "data_baseline_scenario_3.csv")
+data_plot = pd.read_csv("data_baseline_scenario_3.csv")
 # Load hydro capacity factors for calculations
 try:
-    hydro_capacity_factors = pd.read_csv(path + "capacity_factor_hydro.csv")
+    hydro_capacity_factors = pd.read_csv("capacity_factor_hydro.csv")
 except:
     st.error("Missing capacity_factor_hydro.csv file needed for hydro calculations.")
     st.stop()
@@ -831,3 +831,4 @@ if compute_button:
     )
     
     st.markdown("<br>", unsafe_allow_html=True)
+
