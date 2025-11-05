@@ -3,9 +3,6 @@ import pandas as pd
 import pickle
 import numpy as np
 import os
-import plotly.graph_objects as go
-import plotly.express as px
-from plotly.subplots import make_subplots
 from FERidge_classes2 import ConstrainedFEModel, ConstrainedFEScenarioSimulator
 
 TARGETS = ["Baseload_Price_EUR_MWh", "PV_Captured_Price_EUR_MWh"]
@@ -25,7 +22,7 @@ MODEL_COEFFICIENTS = {
     "Baseload_Price_EUR_MWh": {
         "Carbon_price_EU_ETS_EUR_tonne": 0.313380,#0.323380,
         "Gas_price_PSV_EUR_MWh": 1.399184,#1.411840,
-        "Electricity_demand_TWh": 0.365280,#0.371280,
+        "Electricity_demand_TWh": 0.355280,#0.371280,
         "PV_Capacity_GW": -0.604740,#-0.634740,
         "Wind_Capacity_GW": -0.571800,
         "Hydro_Generation_TWh": -0.569845,#-0.549845,
@@ -44,7 +41,7 @@ MODEL_COEFFICIENTS = {
 }
 CAPACITY_FACTOR_HYDRO = pd.read_csv("capacity_factor_hydro.csv")
 
-#path = os.getcwd() + "\\"
+path = os.getcwd() + "\\"
 
 st.set_page_config(
     page_title = "Long Term Energy Price Scenarios",
@@ -62,11 +59,11 @@ def load_model_and_data(scenario,data_plot):
         baseload_model_file = f'baseload_{scenario.lower()}_model_9.pkl'
         pv_model_file = f'pv_{scenario.lower()}_model_9.pkl'
         data_file = f'processed_{scenario.lower()}_scenario_data_6.csv'
-        with open(baseload_model_file, 'rb') as f:
+        with open(path + baseload_model_file, 'rb') as f:
             baseload_model = pickle.load(f)
-        with open(pv_model_file, 'rb') as f:
+        with open(path + pv_model_file, 'rb') as f:
             pv_model = pickle.load(f)
-        data = pd.read_csv(data_file)
+        data = pd.read_csv(path + data_file)
         data["Year"] = data["Year"].astype(int)
         data = data.loc[data['Year'] >= 2026].reset_index(drop=True)
         data["Release"] = data["Release"].astype(str)
@@ -85,10 +82,10 @@ def load_model_and_data(scenario,data_plot):
         st.error(f"Error loading model or data: {e}")
         return None, None, None, None, None
 
-data_plot = pd.read_csv("data_baseline_scenario_3.csv")
+data_plot = pd.read_csv(path + "data_baseline_scenario_3.csv")
 # Load hydro capacity factors for calculations
 try:
-    hydro_capacity_factors = pd.read_csv("capacity_factor_hydro.csv")
+    hydro_capacity_factors = pd.read_csv(path + "capacity_factor_hydro.csv")
 except:
     st.error("Missing capacity_factor_hydro.csv file needed for hydro calculations.")
     st.stop()
@@ -98,6 +95,10 @@ simulator_baseload, simulator_pv, baseload_model, pv_model, data = load_model_an
 if simulator_baseload is None or data is None or simulator_pv is None:
     st.error("Failed to load model or data. Please check if the files exist.")
     st.stop()
+
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
 
 def calculate_hydro_generation(new_hydro_capacity, capacity_factor):
     """
@@ -277,14 +278,13 @@ for i, var in enumerate(all_variables):
                     else:
                         # Standard data editor for other variables
                         editable_df = edited_data[['Year', var]].copy()
-                        
                         updated_df = st.data_editor(
                             editable_df,
                             num_rows="static",
                             use_container_width=True,
                             column_config={
                                 "Year": st.column_config.Column("Year", disabled=True),
-                                var: st.column_config.Column(f"{variable_info[var]['description']} [{variable_info[var]['unit']}]", required=True)
+                                var: st.column_config.Column(var, required=True)
                             },
                             key=f"data_editor_{var}"
                         )
@@ -831,10 +831,3 @@ if compute_button:
     )
     
     st.markdown("<br>", unsafe_allow_html=True)
-
-
-
-
-
-
-
