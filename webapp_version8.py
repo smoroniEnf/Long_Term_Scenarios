@@ -82,7 +82,7 @@ def load_model_and_data(scenario,data_plot):
         st.error(f"Error loading model or data: {e}")
         return None, None, None, None, None
 
-data_plot = pd.read_csv("data_baseline_scenario_3.csv")
+data_plot = pd.read_csv("data_baseline_scenario_3_new.csv")
 # Load hydro capacity factors for calculations
 try:
     hydro_capacity_factors = pd.read_csv("capacity_factor_hydro.csv")
