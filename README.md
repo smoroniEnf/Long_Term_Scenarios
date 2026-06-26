@@ -41,12 +41,6 @@ Trained models are loaded from `.pkl` files in the root folder (one for baseload
 
 The model is a constrained Fixed Effects Ridge regression (`model_class.py`) trained in `model.ipynb`. It takes 7 numerical inputs (demand, PV capacity, wind capacity, battery storage, hydro generation, gas price PSV, EUA) plus release and year fixed effects, and predicts baseload and PV captured prices separately.
 
-To retrain after a new Aurora release:
-
-1. Paste new data into `add_new_data.xlsx` and save the *Aggregated Table* sheet as `new_training_data.csv`
-2. Run `add_releases_to_training_set.ipynb` to append to `training_data.csv`
-3. Re-run `model.ipynb` with `SAVE = True` to overwrite the `.pkl` files
-
 ## App features
 
 - Interactive tabs to edit each input variable year by year (2026–2040)
@@ -60,13 +54,9 @@ To retrain after a new Aurora release:
 ```
 ├── webapp_version8.py          # Streamlit app
 ├── model_class.py              # Model definition and training logic
-├── simulator_class.py          # Scenario simulation with residual correction
-├── model.ipynb                 # Training notebook
-├── add_releases_to_training_set.ipynb
 ├── csv/
 │   ├── training_data.csv
 │   ├── data_baseline_scenario_3.csv
-│   ├── new_training_data.csv
 │   └── capacity_factor_hydro.csv
 ├── *.pkl                       # Trained model files
 └── requirements.txt
