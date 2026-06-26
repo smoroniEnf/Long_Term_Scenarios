@@ -58,7 +58,7 @@ def load_model_and_data(scenario,data_plot):
     try:
         baseload_model_file = f'baseload_{scenario.lower()}_model_9.pkl'
         pv_model_file = f'pv_{scenario.lower()}_model_9.pkl'
-        data_file = f'processed_{scenario.lower()}_scenario_data_6.csv'
+        data_file = 'training_data.csv'   #f'processed_{scenario.lower()}_scenario_data_6.csv'
         with open(baseload_model_file, 'rb') as f:
             baseload_model = pickle.load(f)
         with open(pv_model_file, 'rb') as f:
