@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 import numpy as np
 import os
-from FERidge_classes2 import ConstrainedFEModel, ConstrainedFEScenarioSimulator
+from model_class import ConstrainedFEModel, ConstrainedFEScenarioSimulator
 
 TARGETS = ["Baseload_Price_EUR_MWh", "PV_Captured_Price_EUR_MWh"]
 
