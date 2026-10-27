@@ -1,4 +1,4 @@
-import streamlit as st
+29import streamlit as st
 import pandas as pd
 import pickle
 import numpy as np
@@ -12,7 +12,7 @@ NUM_VARS = [
     "Gas_price_PSV_EUR_MWh",
     "Electricity_demand_TWh",
     "PV_Capacity_GW",
-    "Wind_Capacity_GW",
+    "Wind_Capacity_GW", 
     "Hydro_Generation_TWh",
     "Battery_storage_Capacity_GW",
 ]
@@ -516,7 +516,7 @@ if compute_button:
                     total_modifications += 1
     st.session_state.modified_data_plot_all = modified_data_plot
     st.markdown("<h2 style='text-align: center; font-size: 2.2em;'>🎯 Results</h2>", unsafe_allow_html=True)
-    years = list(range(2026, 2041))
+    years = list(range(2027, 2041))
     baseline_baseload = [round(data_plot[data_plot['Year'] == y]['Baseload_Price_EUR_MWh'].values[0], 2) for y in years]
     baseline_pv = [round(data_plot[data_plot['Year'] == y]['PV_Captured_Price_EUR_MWh'].values[0], 2) for y in years]
     #[simulator_baseload.baseline_data[simulator_baseload.baseline_data['Year'] == y]['Baseload_Price_EUR_MWh'].values[0] for y in years]
