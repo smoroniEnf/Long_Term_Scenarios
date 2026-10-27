@@ -130,7 +130,7 @@ variable_info = {
 
 
 all_variables = list(variable_info.keys())
-years_data_all = data_plot[(data_plot['Year'] >= 2026) & (data_plot['Year'] <= 2040)].copy()
+years_data_all = data_plot[(data_plot['Year'] >= 2027) & (data_plot['Year'] <= 2040)].copy()
 
 if 'edited_data_all' not in st.session_state:
     st.session_state.edited_data_all = {}
